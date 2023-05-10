@@ -71,20 +71,19 @@ from griptape.executors import LocalExecutor
 from griptape.tools import (
     Calculator, WebSearch
 )
+from griptape.artifacts import TextArtifact
 
 tool_executor = LocalExecutor()
 
-google_search = WebSearch(
-    api_search_key="<search key>",
-    api_search_id="<search ID>"
-)
+google_search = WebSearch()
 calculator = Calculator()
 ```
 
 You can execute tool activities directly:
 
 ```python
-tool_executor.execute(calculator.calculate, "42**42".encode())
+# We need to pass the "code" wrapped inside of an artifact.
+tool_executor.execute(calculator.calculate, TextArtifact(value="42*42"))
 ```
 
 Convert tool activities into LangChain tools:
